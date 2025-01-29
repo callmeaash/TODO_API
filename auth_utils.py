@@ -21,6 +21,7 @@ def get_user_from_db(session: SessionDep, username: str):
     return result
 
 
+# Generate new token
 def create_access_token(data: dict, expires_delta: timedelta | None = None):
     to_encode = data.copy()
 
@@ -33,6 +34,7 @@ def create_access_token(data: dict, expires_delta: timedelta | None = None):
     return encoded_jwt
 
 
+# Decode the token from the header
 async def get_current_user(token: Annotated[str, Depends(oauth2_scheme)], session: SessionDep):
     credentials_exception = HTTPException(
         status_code=401,  # UNAUTHORIZED
